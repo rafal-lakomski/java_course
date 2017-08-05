@@ -1,3 +1,5 @@
+package rl.java.course.sandbox;
+
 public class MyFirstProgram {
 
 	public static void main(String[] args) {
