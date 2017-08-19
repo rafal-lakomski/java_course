@@ -1,4 +1,4 @@
-package rl.java.course.addressbook;
+package rl.java.course.addressbook.model;
 
 public class GroupData {
   private final String name;
