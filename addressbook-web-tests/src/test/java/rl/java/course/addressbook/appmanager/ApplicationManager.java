@@ -6,6 +6,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -22,13 +23,13 @@ public class ApplicationManager {
   }
 
   public void init() {
-    if (browser == BrowserType.FIREFOX) {
+    if (Objects.equals(browser, BrowserType.FIREFOX)) {
       System.setProperty("webdriver.gecko.driver", "C:/Geckodriver/geckodriver.exe");
       wd = new FirefoxDriver();
-    } else if (browser == BrowserType.CHROME) {
+    } else if (Objects.equals(browser, BrowserType.CHROME)) {
       System.setProperty("webdriver.gecko.driver", "C:/Geckodriver/geckodriver.exe");
       wd = new ChromeDriver();
-    }  else if (browser == BrowserType.EDGE) {
+    }  else if (Objects.equals(browser, BrowserType.EDGE)) {
       System.setProperty("webdriver.gecko.driver", "C:/Geckodriver/geckodriver.exe");
       wd = new EdgeDriver();
     }
