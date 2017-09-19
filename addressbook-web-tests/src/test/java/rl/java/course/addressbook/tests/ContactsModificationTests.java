@@ -11,7 +11,7 @@ public class ContactsModificationTests extends TestBase {
     app.getContactHelper().editFirstContact();
     app.getContactHelper().fillContactForm(
             new ContactData("NameQA1", "LastNameQA1", "TestQA1", "AddressQA1",
-                    "444-333-222", "testqa1@test.com"));
+                    "444-333-222", "testqa1@test.com", null), false);
     app.getContactHelper().submitContactModification();
     app.getContactHelper().goToHomePage();
   }
