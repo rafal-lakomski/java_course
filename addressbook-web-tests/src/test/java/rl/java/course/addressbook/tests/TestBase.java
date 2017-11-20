@@ -10,13 +10,20 @@ public class TestBase {
   protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
   @BeforeMethod
-  public void setUp() throws Exception {
-    app.init();
-  }
+public void setUp() throws Exception {
+        app.init();
+        }
 
-  @AfterMethod
-  public void tearDown() {
-    app.stop();
-  }
+@AfterMethod
+public void tearDown() {
+        app.stop();
+        }
 
-}
+  public void waitAWhile() {
+    try {
+      wait(3);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+        }
