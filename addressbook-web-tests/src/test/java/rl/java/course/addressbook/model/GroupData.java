@@ -18,14 +18,15 @@ public class GroupData {
     this.name = name;
     this.header = header;
     this.footer = footer;
-      }
+  }
+
   public int getId() {
     return id;
-    }
+  }
 
-   public void setId(int id) {
-   this.id = id;
-   }
+  public void setId(int id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;
@@ -45,7 +46,7 @@ public class GroupData {
             "id='" + id + '\'' +
             ", name='" + name + '\'' +
             '}';
-   }
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -60,6 +61,6 @@ public class GroupData {
   @Override
   public int hashCode() {
     return name != null ? name.hashCode() : 0;
-    }
+  }
 
 }
