@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import rl.java.course.addressbook.model.GroupData;
-
 import java.util.List;
 
 public class GroupDeletionTests extends TestBase {

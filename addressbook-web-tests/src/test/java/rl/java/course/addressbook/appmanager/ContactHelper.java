@@ -1,12 +1,12 @@
 package rl.java.course.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
+import org.openqa.selenium.WebElement;
 import rl.java.course.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -18,20 +18,9 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//div[@id='nav']//a[.='add new']"));
   }
 
-  public void fillContactForm(ContactData contactData, boolean creation) {
+  public void fillContactForm(ContactData contactData) {
     type(By.name("firstname"), contactData.getName());
     type(By.name("lastname"), contactData.getLastName());
-    type(By.name("title"), contactData.getTitle());
-    type(By.name("address"), contactData.getAddress());
-    type(By.name("home"), contactData.getPhone());
-    type(By.name("email"), contactData.getEmail());
-    if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
-    if (isElementPresent(By.name("new_group"))) {
-    }
   }
 
   public void submitContact() {
@@ -62,15 +51,30 @@ public class ContactHelper extends HelperBase {
     wd.switchTo().alert().accept();
   }
 
-  public void createContact(ContactData contact, boolean creation) {
+  public void createContact(ContactData contact) {
     initContactCreation();
-    fillContactForm(contact, creation);
+    fillContactForm(contact);
     submitContact();
     goToHomePage();
   }
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("entry"));
+  }
+
+  public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<>();
+    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+      String name = cells.get(1).getText();
+      String lastName = cells.get(2).getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      ContactData contact = new ContactData(id, lastName, name, null,
+              null, null, null, null);
+      contacts.add(contact);
+    }
+    return contacts;
   }
 
 }
