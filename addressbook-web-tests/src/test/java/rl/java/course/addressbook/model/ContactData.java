@@ -89,7 +89,7 @@ public class ContactData {
 
   @Override
   public String toString() {
-            return "ContactDate{" +
+            return "ContactData{" +
                     "id=" + id +
                     ", name='" + name + '\'' +
                     ", lastName='" + lastName + '\'' +

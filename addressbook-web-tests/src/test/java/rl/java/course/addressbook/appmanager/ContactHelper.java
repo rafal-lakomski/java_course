@@ -28,6 +28,9 @@ public class ContactHelper extends HelperBase {
   }
 
   public void goToHomePage() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
     click(By.linkText("home"));
   }
 
@@ -75,6 +78,14 @@ public class ContactHelper extends HelperBase {
       contacts.add(contact);
     }
     return contacts;
+  }
+
+  public void modifyContact(int index, ContactData contact) {
+    goToHomePage();
+    editFirstContact();
+    fillContactForm(contact);
+    submitContactModification();
+    goToHomePage();
   }
 
 }
