@@ -4,8 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import rl.java.course.addressbook.model.ContactData;
+import rl.java.course.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -34,16 +34,20 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
-  public void selectFirstContact() {
-    click(By.xpath("//*[@id='maintable']/tbody/tr[2]/td[1]"));
+  private void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
   }
 
   public void deleteSelectedContact() {
     click(By.xpath("//*[@value='Delete']"));
   }
 
-  public void editFirstContact() {
-    click(By.xpath(".//*[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  public void initContactModification(int id) {
+    click(By.xpath("//tr[@name='entry']//td[@class='center'][3]"));
+  }
+
+  public void initContactModificationById(int id) {
+    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
   }
 
   public void submitContactModification() {
@@ -65,34 +69,35 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("entry"));
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
-      String name = cells.get(1).getText();
-      String lastName = cells.get(2).getText();
+      String lastName = cells.get(1).getText();
+      String name = cells.get(2).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id, lastName, name, null,
-              null, null, null, null);
+      ContactData contact = new ContactData().withId(id).withLastName(lastName).withName(name);
       contacts.add(contact);
     }
     return contacts;
   }
 
-  public void modify(int index, ContactData contact) {
+  public void modify(ContactData contact) {
     contactPage();
-    editFirstContact();
+    selectContactById(contact.getId());
+    initContactModificationById(contact.getId());
     fillContactForm(contact);
     submitContactModification();
     contactPage();
   }
 
-  public void delete() {
+  public void delete(ContactData contact) {
     contactPage();
-    selectFirstContact();
+    selectContactById(contact.getId());
     deleteSelectedContact();
     acceptAlert();
     contactPage();
   }
+
 }
