@@ -35,9 +35,9 @@ public class ContactEditDetailsTest extends TestBase {
   public void testContactDeteils() {
     app.goTo().contactPage();
     ContactData contact = app.contact().all().iterator().next();
-    ContactData contactDateFromDetailsForm = app.contact().getInfoFromDeteilsForm(contact);
+    ContactData contactDataFromDetailsForm = app.contact().getInfoFromDeteilsForm(contact);
     ContactData contactInfoFromEditForm = convertContactToEqualsViewFormat(app.contact().getInfoFromEditform(contact));
-    assertThat(contactDateFromDetailsForm.getAllDetails(), equalTo(mergeDateDeteils(contactInfoFromEditForm)));
+    assertThat(contactDataFromDetailsForm.getAllDetails(), equalTo(mergeDateDeteils(contactInfoFromEditForm)));
 
 
 

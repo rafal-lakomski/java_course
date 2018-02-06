@@ -1,17 +1,27 @@
 package rl.java.course.addressbook.model;
 
 import java.io.File;
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+@XStreamAlias("contact")
 public class ContactData {
+  @XStreamOmitField
   private int id = Integer.MAX_VALUE;
+  @Expose
   private String name;
+  @Expose
   private String lastName;
+  @Expose
   private String address;
   private String phone;
+  @Expose
   private String email;
   private String email2;
   private String email3;
   private String group;
+  @Expose
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
@@ -191,7 +201,7 @@ public class ContactData {
 
   @Override
   public String toString() {
-    return "ContactDate{" +
+    return "ContactData{" +
             "firrstname='" + name + '\'' +
             ", lastname='" + lastName + '\'' +
             '}';
