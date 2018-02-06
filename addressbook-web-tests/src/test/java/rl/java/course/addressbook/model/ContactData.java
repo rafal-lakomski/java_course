@@ -1,9 +1,10 @@
 package rl.java.course.addressbook.model;
 
-import java.io.File;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.io.File;
 
 @XStreamAlias("contact")
 public class ContactData {
@@ -31,12 +32,12 @@ public class ContactData {
 
   public String getAllDetails() {
     return allDetails;
-    }
+  }
 
-    public ContactData withAllDetails(String allDetails) {
+  public ContactData withAllDetails(String allDetails) {
     this.allDetails = allDetails;
     return this;
-    }
+  }
 
   public String getAllEmails() {
     return allEmails;
@@ -204,6 +205,9 @@ public class ContactData {
     return "ContactData{" +
             "firrstname='" + name + '\'' +
             ", lastname='" + lastName + '\'' +
+            ", address='" + address + '\'' +
+            ", email='" + email + '\'' +
+            ", home='" + homePhone + '\'' +
             '}';
   }
 
