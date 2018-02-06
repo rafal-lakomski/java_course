@@ -1,5 +1,7 @@
 package rl.java.course.addressbook.model;
 
+import java.io.File;
+
 public class ContactData {
   private int id = Integer.MAX_VALUE;
   private String name;
@@ -195,4 +197,15 @@ public class ContactData {
             '}';
   }
 
+
+  public File getPhoto() {
+    return photo;
+  }
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
+
+  private File photo;
 }
