@@ -13,6 +13,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.code.gson:gson:2.6.1'
     compile 'ch.qos.logback:logback-classic:1.1.5'
+    compile 'mysql:mysql-connector-java:8.0.8-dmr'
 }
 
 task testGroups(type: Test) {
