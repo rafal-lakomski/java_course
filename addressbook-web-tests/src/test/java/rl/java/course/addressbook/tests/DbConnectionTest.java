@@ -3,6 +3,7 @@ package rl.java.course.addressbook.tests;
 import org.testng.annotations.Test;
 import rl.java.course.addressbook.model.GroupData;
 import rl.java.course.addressbook.model.Groups;
+
 import java.sql.*;
 
 
@@ -16,7 +17,7 @@ public class DbConnectionTest {
       Statement st = conn.createStatement();
       ResultSet rs = st.executeQuery("Select group_id, group_name, group_header, group_footer from group_list");
       Groups groups = new Groups();
-      while (rs.next()){
+      while (rs.next()) {
         groups.add(new GroupData().withId(rs.getInt("group_id")).withName(rs.getString("group_name"))
                 .withHeader(rs.getString("group_header")).withFooter(rs.getString("group_footer")));
       }
