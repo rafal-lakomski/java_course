@@ -3,32 +3,58 @@ package rl.java.course.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.File;
 
 @XStreamAlias("contact")
 public class ContactData {
   @XStreamOmitField
+  @Id
+  @Column(name = "id")
   private int id = Integer.MAX_VALUE;
   @Expose
+  @Column(name = "firstname")
   private String name;
   @Expose
+  @Column(name = "lastname")
   private String lastName;
   @Expose
+  @Column(name = "address")
+  @Type(type = "text")
   private String address;
-  private String phone;
   @Expose
+  @Column(name = "email")
+  @Type(type = "text")
   private String email;
-  private String email2;
-  private String email3;
-  private String group;
   @Expose
+  @Column(name = "home")
+  @Type(type = "text")
+  private String phone;
+  @Transient
+  private String email2;
+  @Transient
+  private String email3;
+  @Transient
+  private String group;
+  @Transient
   private String homePhone;
+  @Transient
   private String mobilePhone;
+  @Transient
   private String workPhone;
+  @Transient
   private String allPhones;
+  @Transient
   private String allEmails;
+  @Transient
   private String allDetails;
+
+  @Type(type = "text")
+
 
   public String getAllDetails() {
     return allDetails;
@@ -64,7 +90,10 @@ public class ContactData {
     ContactData that = (ContactData) o;
     if (id != that.id) return false;
     if (name != null ? !name.equals(that.name) : that.name != null) return false;
-    return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+    if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+    if (address != null ? !address.equals(that.address) : that.address != null) return false;
+    if (email != null ? !email.equals(that.email) : that.email != null) return false;
+    return homePhone != null ? homePhone.equals(that.homePhone) : that.homePhone == null;
   }
 
   public void setId(int id) {
@@ -76,6 +105,9 @@ public class ContactData {
     int result = id;
     result = 31 * result + (name != null ? name.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
+    result = 31 * result + (email != null ? email.hashCode() : 0);
+    result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
     return result;
   }
 
@@ -203,6 +235,7 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
+            "id=" + id +
             "firrstname='" + name + '\'' +
             ", lastname='" + lastName + '\'' +
             ", address='" + address + '\'' +

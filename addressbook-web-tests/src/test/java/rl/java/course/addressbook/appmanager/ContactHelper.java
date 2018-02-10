@@ -30,6 +30,10 @@ public class ContactHelper extends HelperBase {
     click(By.name("submit"));
   }
 
+  public void updateCreationContact() {
+    click(By.name("update"));
+    }
+
   public void contactPage() {
     if (isElementPresent(By.id("maintable"))) {
       return;
@@ -99,7 +103,7 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId());
     initContactModificationById(contact.getId());
     fillContactForm(contact, true);
-    submitContactModification();
+    updateCreationContact();
     contactPage();
   }
 

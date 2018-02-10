@@ -59,12 +59,12 @@ public class ContactsCreationTests extends TestBase {
   @Test(dataProvider = "validGroupsFromXML")
   public void contactsCreationTests(ContactData contactData) {
     app.goTo().contactPage();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     File photo = new File("src/test/resources/Everest.png");
     ContactData contact = new ContactData().withName("Rafal").withLastName("Lakomski").withPhoto(photo);
     app.contact().createContact(contact);
     app.goTo().contactPage();
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertEquals(after.size(), before.size() + 1);
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
