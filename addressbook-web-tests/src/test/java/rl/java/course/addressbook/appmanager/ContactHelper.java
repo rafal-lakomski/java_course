@@ -3,8 +3,10 @@ package rl.java.course.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import rl.java.course.addressbook.model.ContactData;
 import rl.java.course.addressbook.model.Contacts;
+import rl.java.course.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class ContactHelper extends HelperBase {
 
   public void updateCreationContact() {
     click(By.name("update"));
-    }
+  }
 
   public void contactPage() {
     if (isElementPresent(By.id("maintable"))) {
@@ -142,6 +144,41 @@ public class ContactHelper extends HelperBase {
 
   public void initContactDetailsById(int id) {
     wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+  }
+
+  public void addContactToGroup(ContactData conact, GroupData associateGroup) {
+    selectContactById(conact.getId());
+    selectGroupToAdd(associateGroup);
+    initAddContact();
+
+  }
+
+  public void deleteContactFromGroup(GroupData groupDate, ContactData contactDate) {
+    selectGroupToDelete(groupDate);
+    selectContactById(contactDate.getId());
+    initDeleteContact();
+  }
+
+  public void initContactDeteilsById(int id) {
+
+    wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+
+  }
+
+  public void initAddContact() {
+    wd.findElement(By.name("add")).click();
+  }
+
+  public void initDeleteContact() {
+    wd.findElement(By.name("remove")).click();
+  }
+
+  public void selectGroupToAdd(GroupData group) {
+    new Select(wd.findElement(By.cssSelector("select[name='to_group']"))).selectByVisibleText(group.getName());
+  }
+
+  public void selectGroupToDelete(GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
   }
 
 }

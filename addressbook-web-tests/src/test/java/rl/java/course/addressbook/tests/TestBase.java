@@ -8,10 +8,16 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import rl.java.course.addressbook.appmanager.ApplicationManager;
+import rl.java.course.addressbook.model.GroupData;
+import rl.java.course.addressbook.model.Groups;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 public class TestBase {
 
@@ -41,6 +47,16 @@ public class TestBase {
 
   }
 
+  private void verifyGroupListInUI() {
+    if (Boolean.getBoolean("verifyUI")){
+      Groups dbGroups = app.db().groups();
+      Groups uiGroups = app.group().all();
+      assertThat(uiGroups, equalTo(dbGroups.stream()
+              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
+
+  }
 
   public void waitAWhile() {
     try {
